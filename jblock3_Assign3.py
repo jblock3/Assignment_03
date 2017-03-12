@@ -16,4 +16,12 @@ try :
 
     for line in infile :
         line = line.rstrip('\n')
-        print(line)
+        splitLine = line.split(',')
+        if splitLine[1] == '1' :
+            unhappy.append(splitLine[0])
+        elif splitLine[1] == '5' :
+            satisfied.append(splitLine[0])
+        else :
+            happy.append(splitLine[0])
+finally:
+    print()
