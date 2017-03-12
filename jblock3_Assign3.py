@@ -23,5 +23,5 @@ try :
             satisfied.append(splitLine[0])
         else :
             happy.append(splitLine[0])
-finally:
-    print()
+except IOError :
+    print('Error: File', keywordsFile, "does not exist")
