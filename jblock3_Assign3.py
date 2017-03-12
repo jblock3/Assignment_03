@@ -17,5 +17,3 @@ try :
     for line in infile :
         line = line.rstrip('\n')
         print(line)
-finally :
-    print('bleh')
