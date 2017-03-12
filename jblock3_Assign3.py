@@ -14,14 +14,28 @@ try :
     satisfied = []  # For keywords with sentiment value of 5
     happy = []      # For keywords with sentiment value of 10
 
-    for line in infile :
-        line = line.rstrip('\n')
-        splitLine = line.split(',')
-        if splitLine[1] == '1' :
-            unhappy.append(splitLine[0])
-        elif splitLine[1] == '5' :
-            satisfied.append(splitLine[0])
+    for keywordLine in infile :
+        keywordLine = keywordLine.rstrip('\n')
+        splitKeywordLine = keywordLine.split(',')
+        if splitKeywordLine[1] == '1' :
+            unhappy.append(splitKeywordLine[0])
+        elif splitKeywordLine[1] == '5' :
+            satisfied.append(splitKeywordLine[0])
         else :
-            happy.append(splitLine[0])
+            happy.append(splitKeywordLine[0])
+
+    infile.close()
 except IOError :
     print('Error: File', keywordsFile, "does not exist")
+    quit()
+
+
+try :
+    tweetsFile = input('Enter the filename that contains the tweets: ')
+    infile2 = open(tweetsFile, 'r')
+
+    for tweetLine in infile2 :
+        tweetLine = tweetLine.rstrip('\n')
+        print(tweetLine)
+finally:
+    print()
