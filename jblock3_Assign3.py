@@ -111,6 +111,8 @@ try :
     print(numMountainTweets, mountainScore)
     print(numPacificTweets, pacificScore)
 
+    infile2.close()
+
 except IOError :
     print('Error: File', tweetsFile, 'does not exist.')
     quit()
