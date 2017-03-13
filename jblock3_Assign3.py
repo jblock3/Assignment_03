@@ -9,7 +9,7 @@
 
 try :
     keywordsFile = input('Enter the filename that contains the keywords: ')
-    infile = open(keywordsFile, 'r')
+    infile = open(keywordsFile, 'r', encoding = 'utf-8')
 
     unhappy = []    # For keywords with sentiment value of 1
     satisfied = []  # For keywords with sentiment value of 5
@@ -34,16 +34,16 @@ except IOError :
 # If file exists, "happiness score" for tweet is calculated
 try :
     tweetsFile = input('Enter the filename that contains the tweets: ')
-    infile2 = open(tweetsFile, 'r')
+    infile2 = open(tweetsFile, 'r', encoding = 'utf-8')
     numPacificTweets = 0
     numMountainTweets = 0
     numCentralTweets = 0
-    numEasternTweets = 0
 
+    easternScore = 0
     pacificScore = 0
     mountainScore = 0
     centralScore = 0
-    easternScore = 0
+
 
 
     for line in infile2 :
@@ -60,13 +60,10 @@ try :
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -67.4446574 and longitude >= -87.518395) :
             for element in splitLine :
                 if element in unhappy :
-                    numEasternTweets += 1
                     easternScore += 1
-                if element in satisfied :
-                    numEasternTweets += 1
+                elif element in satisfied :
                     easternScore += 5
-                if element in happy :
-                    numEasternTweets += 1
+                elif element in happy :
                     easternScore += 10
 
 
