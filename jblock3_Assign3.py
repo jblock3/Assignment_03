@@ -4,7 +4,8 @@
 # using functions, complex data structures, nested loops
 #
 
-# Prompt user for name of file containing keywords; check if file exists
+
+# Prompts user for name of file containing keywords; checks if file exists
 
 try :
     keywordsFile = input('Enter the filename that contains the keywords: ')
@@ -29,13 +30,20 @@ except IOError :
     print('Error: File', keywordsFile, "does not exist")
     quit()
 
-
+# Prompts user for name of file containing Tweets text; checks if file exists
+# If file exists, "happiness score" for tweet is calculated
 try :
     tweetsFile = input('Enter the filename that contains the tweets: ')
     infile2 = open(tweetsFile, 'r')
 
+
     for tweetLine in infile2 :
         tweetLine = tweetLine.rstrip('\n')
-        print(tweetLine)
+        splitTweetLine = tweetLine.split()
+        for element in splitTweetLine :
+            element = element.lstrip('[')
+            element = element.rstrip(']')
+            element = element.rstrip(',')
+            print(element)
 finally:
     print()
