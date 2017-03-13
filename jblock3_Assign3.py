@@ -45,6 +45,7 @@ try :
     centralScore = 0
     easternScore = 0
 
+
     for line in infile2 :
         line = line.rstrip('\n')
         splitLine = line.split()
@@ -65,10 +66,20 @@ try :
                     easternScore += 5
                 if element in happy :
                     easternScore += 10
-    print(numEasternTweets)
-    print(easternScore)
 
 
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude < -87.518395 and longitude >= -101.998892) :
+            numCentralTweets += 1
+            for element in splitLine :
+                if element in unhappy :
+                    centralScore += 1
+                if element in satisfied :
+                    centralScore += 5
+                if element in happy :
+                    centralScore += 10
 
-finally:
-    print()
+    print(numEasternTweets, easternScore)
+    print(numCentralTweets, centralScore)
+except IOError :
+    print('Error: File', tweetsFile, 'does not exist.')
+    quit()
