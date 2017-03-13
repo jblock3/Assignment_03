@@ -58,34 +58,40 @@ try :
         longitude = float(longSplit)
 
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -67.4446574 and longitude >= -87.518395) :
-            numEasternTweets += 1
             for element in splitLine :
                 if element in unhappy :
+                    numEasternTweets += 1
                     easternScore += 1
                 if element in satisfied :
+                    numEasternTweets += 1
                     easternScore += 5
                 if element in happy :
+                    numEasternTweets += 1
                     easternScore += 10
 
 
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude < -87.518395 and longitude >= -101.998892) :
-            numCentralTweets += 1
             for element in splitLine :
                 if element in unhappy :
+                    numCentralTweets += 1
                     centralScore += 1
                 if element in satisfied :
+                    numCentralTweets += 1
                     centralScore += 5
                 if element in happy :
+                    numCentralTweets += 1
                     centralScore += 10
 
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude < -101.998892 and longitude >= -115.236428) :
-            numMountainTweets += 1
             for element in splitLine :
                 if element in unhappy :
+                    numMountainTweets += 1
                     mountainScore += 1
                 if element in satisfied :
+                    numMountainTweets += 1
                     mountainScore += 5
                 if element in happy :
+                    numMountainTweets += 1
                     mountainScore += 10
 
     print(numEasternTweets, easternScore)
