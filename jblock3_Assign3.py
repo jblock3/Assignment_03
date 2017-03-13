@@ -106,10 +106,10 @@ try :
                     numPacificTweets += 1
                     pacificScore += 10
 
-    print(numEasternTweets, easternScore)
-    print(numCentralTweets, centralScore)
-    print(numMountainTweets, mountainScore)
-    print(numPacificTweets, pacificScore)
+    print('The Eastern timezone has a happiness score of', easternScore / numEasternTweets, 'and has', numEasternTweets, 'tweets')
+    print('The Central timezone has a happiness score of', centralScore / numCentralTweets, 'and has', numCentralTweets, 'tweets')
+    print('The Mountain timezone has a happiness score of', mountainScore / numMountainTweets, 'and has', numMountainTweets, 'tweets')
+    print('The Pacific timezone has a happiness score of', pacificScore / numPacificTweets, 'and has', numPacificTweets, 'tweets')
 
     infile2.close()
 
