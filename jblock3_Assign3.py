@@ -50,12 +50,12 @@ try :
         line = line.rstrip('\n')
         splitLine = line.split()
 
-        latSplit1 = splitLine[0].rstrip(',')
-        latSplit2 = latSplit1.lstrip('[')
-        latitude = float(latSplit2)
+        latStrip1 = splitLine[0].rstrip(',')
+        latStrip2 = latStrip1.lstrip('[')
+        latitude = float(latStrip2)
 
-        longSplit = splitLine[1].rstrip(']')
-        longitude = float(longSplit)
+        longStrip = splitLine[1].rstrip(']')
+        longitude = float(longStrip)
 
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -67.4446574 and longitude >= -87.518395) :
             for element in splitLine :
@@ -70,7 +70,7 @@ try :
                     easternScore += 10
 
 
-        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude < -87.518395 and longitude >= -101.998892) :
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -87.518395 and longitude >= -101.998892) :
             for element in splitLine :
                 if element in unhappy :
                     numCentralTweets += 1
@@ -82,7 +82,7 @@ try :
                     numCentralTweets += 1
                     centralScore += 10
 
-        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude < -101.998892 and longitude >= -115.236428) :
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -101.998892 and longitude >= -115.236428) :
             for element in splitLine :
                 if element in unhappy :
                     numMountainTweets += 1
