@@ -78,8 +78,19 @@ try :
                 if element in happy :
                     centralScore += 10
 
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude < -101.998892 and longitude >= -115.236428) :
+            numMountainTweets += 1
+            for element in splitLine :
+                if element in unhappy :
+                    mountainScore += 1
+                if element in satisfied :
+                    mountainScore += 5
+                if element in happy :
+                    mountainScore += 10
+
     print(numEasternTweets, easternScore)
     print(numCentralTweets, centralScore)
+    print(numMountainTweets, mountainScore)
 except IOError :
     print('Error: File', tweetsFile, 'does not exist.')
     quit()
