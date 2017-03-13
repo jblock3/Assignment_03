@@ -35,10 +35,16 @@ except IOError :
 try :
     tweetsFile = input('Enter the filename that contains the tweets: ')
     infile2 = open(tweetsFile, 'r')
-    pacificTweets = []
-    mountainTweets = []
-    centralTweets = []
-    easternTweets = []
+    numPacificTweets = 0
+    numMountainTweets = 0
+    numCentralTweets = 0
+    numEasternTweets = 0
+
+    pacificScore = 0
+    mountainScore = 0
+    centralScore = 0
+    easternScore = 0
+
     for line in infile2 :
         line = line.rstrip('\n')
         splitLine = line.split()
@@ -50,6 +56,12 @@ try :
         longSplit = splitLine[1].rstrip(']')
         longitude = float(longSplit)
 
-        
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -67.4446574 and longitude >= -87.518395) :
+                numEasternTweets += 1
+
+    print(numEasternTweets)
+
+
+
 finally:
     print()
