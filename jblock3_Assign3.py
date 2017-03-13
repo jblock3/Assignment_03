@@ -35,15 +35,21 @@ except IOError :
 try :
     tweetsFile = input('Enter the filename that contains the tweets: ')
     infile2 = open(tweetsFile, 'r')
+    pacificTweets = []
+    mountainTweets = []
+    centralTweets = []
+    easternTweets = []
+    for line in infile2 :
+        line = line.rstrip('\n')
+        splitLine = line.split()
 
+        latSplit1 = splitLine[0].rstrip(',')
+        latSplit2 = latSplit1.lstrip('[')
+        latitude = float(latSplit2)
 
-    for tweetLine in infile2 :
-        tweetLine = tweetLine.rstrip('\n')
-        splitTweetLine = tweetLine.split()
-        for element in splitTweetLine :
-            element = element.lstrip('[')
-            element = element.rstrip(']')
-            element = element.rstrip(',')
-            print(element)
+        longSplit = splitLine[1].rstrip(']')
+        longitude = float(longSplit)
+
+        
 finally:
     print()
