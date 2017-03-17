@@ -5,85 +5,128 @@
 #
 
 
-def main() :
+# Prompts user for name of file containing keywords; checks if file exists
 
-    try :   # Prompts user for name of file containing keywords; checks if file exists
-        keywordsFile = input('Enter the filename that contains the keywords: ')
-        infile = open(keywordsFile, 'r')
+try :
+    keywordsFile = input('Enter the filename that contains the keywords: ')
+    infile = open(keywordsFile, 'r', encoding = 'utf-8')
 
-        unhappy = []    # For keywords with sentiment value of 1
-        satisfied = []  # For keywords with sentiment value of 5
-        happy = []      # For keywords with sentiment value of 10
+    unhappy = []    # For keywords with sentiment value of 1
+    satisfied = []  # For keywords with sentiment value of 5
+    happy = []      # For keywords with sentiment value of 10
 
-        for keywordLine in infile :
-            keywordLine = keywordLine.rstrip('\n')
-            splitKeywordLine = keywordLine.split(',')
-            if splitKeywordLine[1] == '1' :
-                unhappy.append(splitKeywordLine[0])
-            elif splitKeywordLine[1] == '5' :
-                satisfied.append(splitKeywordLine[0])
-            else :
-                happy.append(splitKeywordLine[0])
+    for keywordLine in infile :
+        keywordLine = keywordLine.rstrip('\n')
+        splitKeywordLine = keywordLine.split(',')
+        if splitKeywordLine[1] == '1' :
+            unhappy.append(splitKeywordLine[0])
+        elif splitKeywordLine[1] == '5' :
+            satisfied.append(splitKeywordLine[0])
+        else :
+            happy.append(splitKeywordLine[0])
 
-        infile.close()
-    except IOError :
-        print('Error: File', keywordsFile, "does not exist")
-        quit()
+    infile.close()
+except IOError :
+    print('Error: File', keywordsFile, "does not exist")
+    quit()
 
-    # Prompts user for name of file containing Tweets text; checks if file exists
-    # If file exists, "happiness score" for tweet is calculated
-    try :
-        tweetsFile = input('Enter the filename that contains the tweets: ')
-        infile2 = open(tweetsFile, 'r')
-        numPacificTweets = 0
-        numMountainTweets = 0
-        numCentralTweets = 0
-        numEasternTweets = 0
+# Prompts user for name of file containing Tweets text; checks if file exists
+# If file exists, "happiness score" for tweet is calculated
+try :
+    tweetsFile = input('Enter the filename that contains the tweets: ')
+    infile2 = open(tweetsFile, 'r', encoding = 'utf-8')
+    numEasternTweets = 0
+    numPacificTweets = 0
+    numMountainTweets = 0
+    numCentralTweets = 0
 
-        pacificScore = 0
-        mountainScore = 0
-        centralScore = 0
-        easternScore = 0
-
-
-        for line in infile2 :
-            line = line.rstrip('\n')
-            splitLine = line.split()
-
-            latStrip1 = splitLine[0].rstrip(',')
-            latStrip2 = latStrip1.lstrip('[')
-            latitude = float(latStrip2)
-
-            longStrip = splitLine[1].rstrip(']')
-            longitude = float(longStrip)
-
-            if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -67.4446574 and longitude >= -87.518395) :
-                happinessScore(numEasternTweets, easternScore)
-
-            if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -87.518395 and longitude >= -101.998892) :
-                happinessScore(numCentralTweets, centralScore)
-
-            if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -101.998892 and longitude >= -115.236428) :
-                happinessScore(numMountainTweets, mountainScore)
-
-            if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -115.236428 and longitude >= -125.242264) :
-                happinessScore(numPacificTweets, pacificScore)
+    easternScore = 0
+    pacificScore = 0
+    mountainScore = 0
+    centralScore = 0
 
 
-    except IOError :
-        print('Error: File', tweetsFile, 'does not exist.')
-        quit()
 
-def happinessScore(numRegionTweets, regionScore) :
-    for element in splitLine :
-        if element in unhappy :
-            numRegionTweets += 1
-            regionScore += 1
-        if element in satisfied :
-            numRegionTweets += 1
-            regionScore += 5
-        if element in happy :
-            numRegionTweets += 1
-            regionScore += 10
+    for line in infile2 :
+        line = line.rstrip('\n')
+        splitLine = line.split()
 
-print(main())
+        latStrip1 = splitLine[0].rstrip(',')
+        latStrip2 = latStrip1.lstrip('[')
+        latitude = float(latStrip2)
+
+        longStrip = splitLine[1].rstrip(']')
+        longitude = float(longStrip)
+
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -67.4446574 and longitude >= -87.518395) :
+            originalEasternScore = 0
+            for element in splitLine :
+                if element in unhappy :
+                    easternScore += 1
+                elif element in satisfied :
+                    easternScore += 5
+                elif element in happy :
+                    easternScore += 10
+            if originalEasternScore != easternScore :
+                numEasternTweets += 1
+                originalEasternScore = easternScore
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -87.518395 and longitude >= -101.998892) :
+            originalCentralScore = 0
+            for element in splitLine :
+                if element in unhappy :
+                    numCentralTweets += 1
+                    centralScore += 1
+                if element in satisfied :
+                    numCentralTweets += 1
+                    centralScore += 5
+                if element in happy :
+                    numCentralTweets += 1
+                    centralScore += 10
+            if originalCentralScore != centralScore :
+                numCentralTweets += 1
+                originalCentralScore = centralScore
+
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -101.998892 and longitude >= -115.236428) :
+            originalMountainScore = 0
+            for element in splitLine :
+                if element in unhappy :
+                    numMountainTweets += 1
+                    mountainScore += 1
+                if element in satisfied :
+                    numMountainTweets += 1
+                    mountainScore += 5
+                if element in happy :
+                    numMountainTweets += 1
+                    mountainScore += 10
+            if originalMountainScore != mountainScore :
+                numMountainTweets += 1
+                originalMountainScore = mountainScore
+
+        if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -115.236428 and longitude >= -125.242264) :
+            originalPacificScore = 0
+            for element in splitLine :
+                if element in unhappy :
+                    numPacificTweets += 1
+                    pacificScore += 1
+                if element in satisfied :
+                    numPacificTweets += 1
+                    pacificScore += 5
+                if element in happy :
+                    numPacificTweets += 1
+                    pacificScore += 10
+            if originalPacificScore != pacificScore :
+                numPacificTweets += 1
+                originalPacificScore = pacificScore
+
+
+
+    print('The Eastern timezone has a happiness score of', easternScore / numEasternTweets, 'and has', numEasternTweets, 'tweets')
+    print('The Central timezone has a happiness score of', centralScore / numCentralTweets, 'and has', numCentralTweets, 'tweets')
+    print('The Mountain timezone has a happiness score of', mountainScore / numMountainTweets, 'and has', numMountainTweets, 'tweets')
+    print('The Pacific timezone has a happiness score of', pacificScore / numPacificTweets, 'and has', numPacificTweets, 'tweets')
+
+    infile2.close()
+
+except IOError :
+    print('Error: File', tweetsFile, 'does not exist.')
+    quit()
