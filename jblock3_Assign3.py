@@ -118,15 +118,21 @@ try :
                 numPacificTweets += 1
                 originalPacificScore = pacificScore
 
+    finalEasternScore = easternScore / numEasternTweets
+    finalCentralScore = centralScore / numCentralTweets
+    finalMountainScore = mountainScore / numMountainTweets
+    finalPacificScore = pacificScore / numPacificTweets
 
-
-    print('The Eastern timezone has a happiness score of', easternScore / numEasternTweets, 'and has', numEasternTweets, 'tweets')
-    print('The Central timezone has a happiness score of', centralScore / numCentralTweets, 'and has', numCentralTweets, 'tweets')
-    print('The Mountain timezone has a happiness score of', mountainScore / numMountainTweets, 'and has', numMountainTweets, 'tweets')
-    print('The Pacific timezone has a happiness score of', pacificScore / numPacificTweets, 'and has', numPacificTweets, 'tweets')
+    print('The Eastern timezone has a happiness score of', finalEasternScore, 'and has', numEasternTweets, 'tweets')
+    print('The Central timezone has a happiness score of', finalCentralScore, 'and has', numCentralTweets, 'tweets')
+    print('The Mountain timezone has a happiness score of', finalMountainScore, 'and has', numMountainTweets, 'tweets')
+    print('The Pacific timezone has a happiness score of', finalPacificScore, 'and has', numPacificTweets, 'tweets')
 
     infile2.close()
 
 except IOError :
     print('Error: File', tweetsFile, 'does not exist.')
     quit()
+
+from happy_histogram import drawSimpleHistogram
+drawSimpleHistogram(finalEasternScore, finalCentralScore, finalMountainScore, finalPacificScore)
