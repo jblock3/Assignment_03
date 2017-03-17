@@ -35,6 +35,7 @@ except IOError :
 try :
     tweetsFile = input('Enter the filename that contains the tweets: ')
     infile2 = open(tweetsFile, 'r', encoding = 'utf-8')
+    numEasternTweets = 0
     numPacificTweets = 0
     numMountainTweets = 0
     numCentralTweets = 0
@@ -58,6 +59,7 @@ try :
         longitude = float(longStrip)
 
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -67.4446574 and longitude >= -87.518395) :
+            originalEasternScore = 0
             for element in splitLine :
                 if element in unhappy :
                     easternScore += 1
@@ -65,9 +67,11 @@ try :
                     easternScore += 5
                 elif element in happy :
                     easternScore += 10
-
-
+            if originalEasternScore != easternScore :
+                numEasternTweets += 1
+                originalEasternScore = easternScore
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -87.518395 and longitude >= -101.998892) :
+            originalCentralScore = 0
             for element in splitLine :
                 if element in unhappy :
                     numCentralTweets += 1
@@ -78,8 +82,12 @@ try :
                 if element in happy :
                     numCentralTweets += 1
                     centralScore += 10
+            if originalCentralScore != centralScore :
+                numCentralTweets += 1
+                originalCentralScore = centralScore
 
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -101.998892 and longitude >= -115.236428) :
+            originalMountainScore = 0
             for element in splitLine :
                 if element in unhappy :
                     numMountainTweets += 1
@@ -90,8 +98,12 @@ try :
                 if element in happy :
                     numMountainTweets += 1
                     mountainScore += 10
+            if originalMountainScore != mountainScore :
+                numMountainTweets += 1
+                originalMountainScore = mountainScore
 
         if (latitude <= 49.189787 and latitude >= 24.660845) and (longitude <= -115.236428 and longitude >= -125.242264) :
+            originalPacificScore = 0
             for element in splitLine :
                 if element in unhappy :
                     numPacificTweets += 1
@@ -102,6 +114,11 @@ try :
                 if element in happy :
                     numPacificTweets += 1
                     pacificScore += 10
+            if originalPacificScore != pacificScore :
+                numPacificTweets += 1
+                originalPacificScore = pacificScore
+
+
 
     print('The Eastern timezone has a happiness score of', easternScore / numEasternTweets, 'and has', numEasternTweets, 'tweets')
     print('The Central timezone has a happiness score of', centralScore / numCentralTweets, 'and has', numCentralTweets, 'tweets')
